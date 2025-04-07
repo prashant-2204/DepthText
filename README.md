@@ -1,11 +1,10 @@
-# Preview
+# 3D Text Overlay App
+
+A minimalist web app that lets you add underlay text behind an image to create a beautiful 3D-like layered effect. Choose any word, and it blends behind the subject, giving a subtle 3D vibe.
+
+## Preview
 
 
-![preview](/ui1.png)
+### UI Preview 
 
-
-![preview2](/ui2.png)
-
-
-
-![preview3](/ui3.png)
+<img src="./ui3.png" width="70%" />
