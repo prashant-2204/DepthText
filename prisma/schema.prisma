@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// user model
+enum Plan{
+  FREE
+  PRO
+}
+model User{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  email String @unique
+  username String @unique
+  clerkId String @unique
+  password String?
+  provider String
+  creditsUsed Int
+  creditsLeft Int
+  showAds Boolean @default(true)
+  plan Plan @default(FREE)
+  createdAt DateTime @default(now())
+  updaedAt DateTime @updatedAt 
+  generations Generation[]
+  savedGenerations SavedGenerations[]
+
+}
+
+
+// Generation Model
+model Generation{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @db.ObjectId
+  user User @relation(fields: [userId],references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt 
+}
+
+// saved generations model:
+model SavedGenerations{
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+    name String
+    userId String @db.ObjectId
+    user User @relation(fields: [userId],references: [id])
+    imageUrl String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt 
+}
